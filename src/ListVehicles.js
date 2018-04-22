@@ -53,9 +53,9 @@ export default class ListVehicles extends Component {
     let vehicles = this.state.vehicles.map(vehicle => {
           console.log(vehicle);
           return(
-            <span>
+            <span id="divider">
               <ListItem
-                button
+                button="true"
                 rightIcon={         <IconButton
                           iconClassName="fas fa-trash-alt"
                           tooltip="Remover Veículo"

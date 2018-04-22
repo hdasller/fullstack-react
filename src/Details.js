@@ -31,7 +31,7 @@ goUpdateVehicle(){
           <CardHeader
             title={this.state.obj.modelo}
             titleColor="#189C6C"
-            titleStyle={{'font-weight': 'bold', 'margin-top':"1vh" }}
+            titleStyle={{'fontWeight': 'bold', 'marginTop':"1vh" }}
             />
           <div className="title row">
             <p className="card-text"></p>
@@ -74,9 +74,9 @@ goUpdateVehicle(){
           </div>
         </CardText>
             <CardActions className="footer-card">
-                <RaisedButton icon={<i class="fas fa-pencil-alt"></i>} labelColor="#FFF" label="EDITAR" backgroundColor="#45535A" onClick={this.goUpdateVehicle.bind(this)} />
+                <RaisedButton icon={<i className="fas fa-pencil-alt"></i>} labelColor="#FFF" label="EDITAR" backgroundColor="#45535A" onClick={this.goUpdateVehicle.bind(this)} />
 
-                  <RaisedButton icon={<i class="fas fa-trash-alt"></i>} labelColor="#FFF" label="DELETAR" backgroundColor="#2a3138"  />
+                  <RaisedButton icon={<i className="fas fa-trash-alt"></i>} labelColor="#FFF" label="DELETAR" backgroundColor="#2a3138"  />
             </CardActions>
         </div>
       </Card>

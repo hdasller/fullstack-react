@@ -10,10 +10,9 @@ import MODEL from './models/gql.model.js'
 import ApolloClient from "apollo-boost";
 import gql from "graphql-tag";
 import BASE_URL from './config/constants.js';
-
 const client = new ApolloClient(BASE_URL);
 
-export default class DialogExampleModal extends React.Component {
+export default class MutationModal extends React.Component {
 
 
     constructor() {
@@ -23,6 +22,7 @@ export default class DialogExampleModal extends React.Component {
           open: false,
           teste: false,
           isUpdate: false,
+          title: '',
           obj: {}
         };
     }
@@ -31,14 +31,20 @@ export default class DialogExampleModal extends React.Component {
 
       PubSub.subscribe('openDialogUpdate', function(topicName,obj){
         this.handleOpen()
-        this.setState({'isUpdate': true})
-        this.setState({'_id': obj._id})
-
-
-        this.setState({obj: this.makeVehicle(obj)});
+        this.setState({
+          'isUpdate': true,
+         '_id': obj._id,
+         'obj': this.makeVehicle(obj),
+         'title': "Alterar Veículo",
+         'titleButtom': "Alterar"
+       })
       }.bind(this));
       PubSub.subscribe('openDialogCreate', function(topicName,vehicle){
         this.handleOpen()
+        this.setState({
+         'title': "Novo Veículo",
+         'titleButtom': "Adicionar"
+       })
       }.bind(this));
 
   }
@@ -94,39 +100,52 @@ salvaAlteracao(nomeInput, evento) {
 
 
   render() {
+    const styles = {
+      underlineStyle: {
+        borderColor: "#45535A",
+      }
+    };
     const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
+
+      <RaisedButton
+       icon={<i className="fas fa-pencil-alt"></i>}
+       labelColor="#FFF"
+       label={this.state.titleButtom}
+       backgroundColor="#45535A"
+       onClick={this.submitForm.bind(this)}
+       style={{'marginRight': "15px"}}
+       />,
+
+       <RaisedButton
+        labelColor="#FFF"
+        label="Cancelar"
+        backgroundColor="#2a3138"
         onClick={this.handleClose}
-      />,
-      <FlatButton
-        label="Submit"
-        type="submit"
-        primary={true}
-        disabled={false}
-        onClick={this.submitForm.bind(this)}
-      />,
+        />
     ];
 
     return (
       <div>
         <Dialog
-          title="Dialog With Actions"
+          title={this.state.title}
           actions={actions}
           modal={true}
           open={this.state.open}
+          bodyClassName="modal-mutation body"
+          titleClassName="modal-mutation title"
+          actionsContainerClassName="modal-mutation actions"
         >
 
-        <form className="pure-form pure-form-aligned" onSubmit={this.submitForm.bind(this)} method="post">
+        <form onSubmit={this.submitForm.bind(this)} method="post">
           <TextField
             id="modelo"
+            underlineStyle={styles.underlineStyle}
             value={this.state.obj['modelo']}
           onChange={this.salvaAlteracao.bind(this,'modelo')}
           floatingLabelText="Veículo"
           /><br />
           <SelectType id="marca" type="MarcaType" name="Marca"
-          onChange={this.salvaAlteracao.bind(this, 'marca')}
+          underlineStyle={styles.underlineStyle}
           ></SelectType><br />
           <TextField
           id="ano_modelo"
@@ -137,6 +156,7 @@ salvaAlteracao(nomeInput, evento) {
           /><br />
           <TextField
             id="ano_fabricacao"
+            underlineStyle={styles.underlineStyle}
 
           value={this.state.obj['ano_fabricacao']}
           onChange={this.salvaAlteracao.bind(this,'ano_fabricacao')}
@@ -144,10 +164,13 @@ salvaAlteracao(nomeInput, evento) {
           /><br />
           <SelectType id="combustivel" type="CombustivelType" name="Combustivel"
           onChange={this.salvaAlteracao.bind(this,'combustivel')}
+          underlineStyle={styles.underlineStyle}
+
           ></SelectType><br />
           <TextField
-            id="cor"
+          underlineStyle={styles.underlineStyle}
 
+          id="cor"
           value={this.state.obj['cor']}
           onChange={this.salvaAlteracao.bind(this,'cor')}
           floatingLabelText="Cor"

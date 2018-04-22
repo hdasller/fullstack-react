@@ -118,6 +118,14 @@ $basic-color: #dddddd;
 
 }
 
+//Styles for MutationModal
+.modal-mutation{
+  background-color: #E2E4E1;
+  .body{
+    background-color: red !important;
+  }
+}
+
 .card-text {
     display: flex;
 }

@@ -3,7 +3,7 @@ import './App.css';
 import CustomNav from './Navbar';
 import ListVehicles from './ListVehicles';
 import Details from './Details';
-import DialogExampleModal from './Exemplo';
+import MutationModal from './MutationModal';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -38,7 +38,7 @@ class App extends Component {
 
           <div className="row">
             <div className="col-sm-6">
-              <ListVehicles></ListVehicles>
+              <ListVehicles name="list-vehicles"></ListVehicles>
 
             </div>
             <div className="col-sm-6">
@@ -48,7 +48,7 @@ class App extends Component {
 
         </div>
 
-      <DialogExampleModal></DialogExampleModal>
+      <MutationModal></MutationModal>
       </div>
       </MuiThemeProvider>
     );

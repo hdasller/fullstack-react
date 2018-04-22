@@ -74,6 +74,11 @@
     align-items: center;
     border-top: 1px solid #dddddd; }
 
+.modal-mutation {
+  background-color: #E2E4E1; }
+  .modal-mutation .body {
+    background-color: red !important; }
+
 .card-text {
   display: flex; }
 
