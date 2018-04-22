@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import BASE_URL from './config/constants.js'
+import BASE_URL from './config/constants.js';
 import ApolloClient from "apollo-boost";
 import gql from "graphql-tag";
 import {Card, CardText} from 'material-ui/Card';
 import MODEL from './models/gql.model.js'
 import InfiniteScroll from 'react-infinite-scroller';
+import PubSub from 'pubsub-js';
+import SelectMark from './SelectType.js'
+import Divider from 'material-ui/Divider';
+import List, { ListItem, ListItemText } from 'material-ui/List';
 
 const client = new ApolloClient(BASE_URL);
+
 export default class ListVehicles extends Component {
 
 
@@ -14,18 +19,16 @@ export default class ListVehicles extends Component {
 
     super();
     this.state = {vehicles: [], hasNextPage: true};
+  }
 
-
-
-
-
-
-
+  changeDetails(ctx, vehicles){
+    console.log("vehicles onclick", vehicles);
+    PubSub.publish('changeDetails', vehicles);
   }
 
   getVehicles(page) {
     let variables = {
-      "limit": 20,
+      "limit": 5,
       "page": page,
       "type": "veiculo",
       "query": ""
@@ -37,7 +40,7 @@ export default class ListVehicles extends Component {
     }).then(res=> {
           let responseVehicles = res['data']['buscaVeiculo']['edges']
           let currentlyVehicles = this.state.vehicles
-          this.setState({hasNextPage: this.pageInfo = res['data']['buscaVeiculo']['pageInfo']['hasNextPage'] })
+          this.setState({hasNextPage: res['data']['buscaVeiculo']['pageInfo']['hasNextPage'] })
           let vehicles =  [... currentlyVehicles, ... responseVehicles ]
           this.setState({vehicles: vehicles});
           console.log("teste, ", res);
@@ -49,38 +52,48 @@ export default class ListVehicles extends Component {
     let vehicles = this.state.vehicles.map(vehicle => {
           console.log(vehicle);
           return(
+            <span>
+              <ListItem
+                button
+                rightIcon={    <span><i className="fas fa-tag"></i></span>}
+                onClick={(e) => this.changeDetails(e, vehicle.node)}>
+                  <span className="card-text">{vehicle.node.marca}</span>
+                  <span className="card-text">{vehicle.node.modelo}</span>
+                  <span className="card-text">{vehicle.node.ano_modelo}</span>
 
-   <Card style="height:700px;overflow:auto;">
-   <CardText style={{'background-color': 'red', height: '6em'}}>
-   <div className="card-body ">
-       <div className="col-sm-9">
-         <span className="card-text">{vehicle.node.marca}</span>
-         <span className="card-text">{vehicle.node.modelo}</span>
-         <span className="card-text">{vehicle.node.ano_modelo}</span>
-       </div>
-       <div className="col-sm-3">
-         <span><i className="fas fa-tag"></i></span>
-       </div>
-   </div>
-     </CardText>
-   </Card>
+              </ListItem>
+                <Divider />
+            </span>
+
+
+
+
 
           )
         })
 
+
+
+
 		return (
       <div style={{'overflow': 'auto', height: '500px'}}>
       <InfiniteScroll
- pageStart={0}
- loadMore={this.getVehicles.bind(this)}
- hasMore={this.state.hasNextPage}
- loader={<div className="loader" key={0}>Loading ...</div>}
- useWindow={false}
->
-{vehicles}
+         pageStart={0}
+         loadMore={this.getVehicles.bind(this)}
+         hasMore={this.state.hasNextPage}
+         useWindow={false}
+      >
+    <Card>
+    <CardText>
+      <List component="nav"  >
+        {vehicles}
+
+       </List>
+      </CardText>
+    </Card>
+
+
 </InfiniteScroll></div>
-
-
 		);
 	}
 

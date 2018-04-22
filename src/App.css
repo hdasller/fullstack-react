@@ -21,7 +21,15 @@
 .App-intro {
   font-size: large;
 }
-
+.navbar-form{
+  background-color: #2a3138;
+}
+.navbar-brand{
+  background-color: gray;
+}
+.navbar-all-content{
+  background-color: #364147;
+}
 .card-text {
     display: flex;
 }

@@ -1,6 +1,5 @@
-
 const MODEL = {
-  getVehicles: () =>{
+  getVehicles: () => {
     return `query	BuscaVeiculo ($page: Int, $limit: Int, $query: String ,$type: String){
       buscaVeiculo(page: $page, limit: $limit, query: $query ,type: $type){
         total
@@ -30,7 +29,33 @@ const MODEL = {
     }`
   },
 
+  getTypes: (type) => {
 
+    return `
+    {
+    __type(name: "${type}") {
+      name
+      enumValues {
+        name
+      }
+    }
+  }`
+  },
+  createVehicle: () => {
+    return `mutation	CreateVeiculo ($data: VeiculoInput!){
+    createVeiculo(data: $data)
+  }`
+  },
+  updateVehicle: () => {
+    return `mutation	UpdateVeiculo ($data: JSON! $id: ID!){
+    updateVeiculo(data: $data, id: $id)
+  }`
+  },
+  deleteVehicle: () => {
+    return `mutation	DeleteVeiculo ( $id: ID!){
+    deleteVeiculo( id: $id)
+  }`
+  }
 
 }
 export default MODEL

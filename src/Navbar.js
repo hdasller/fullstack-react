@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Navbar  } from 'react-bootstrap';
+import { Navbar , NavItem, Nav } from 'react-bootstrap';
 
-export default class Nav extends Component {
+export default class CustomNav extends Component {
 
   constructor() {
 
@@ -13,12 +13,22 @@ export default class Nav extends Component {
 
   render() {
 		return (
-      <Navbar>
-        <span><i className="fas fa-tint"></i></span>
-        <span>fullstack</span>
-        <form className="pure-form pure-form-aligned"  method="post">
-          <span><input id="search" type="text" placeholder="BUSCA por um veículo"/></span>
-        </form>
+      <Navbar fluid="false" className="navbar-all-content">
+
+          <div className="col-sm-6">
+            <div className="navbar-brand">
+              <span className="icon"><i className="fas fa-tint"></i></span>
+              <span className="title">fullstack</span>
+            </div>
+          </div>
+          <div className="col-sm-6">
+            <div className="navbar-form">
+              <form method="post">
+                <input id="search" type="text" placeholder="BUSCA por um veículo"/>
+              </form>
+            </div>
+          </div>
+
       </Navbar>
 		);
 	}
