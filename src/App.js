@@ -17,36 +17,28 @@ class App extends Component {
     return (
       <MuiThemeProvider>
       <div>
-      <CustomNav></CustomNav>
+        <CustomNav></CustomNav>
 
+        <div className="container">
+          <div class="row">
+            <PageHeader className="vehicles-header">
+                <span name="title">VEÍCULO</span>
+              <span name="icon"><i class="fas fa-plus-circle"></i></span>
+            </PageHeader>
+          </div>
 
-        <div class="container">
-          <PageHeader>
-              <span>VEÍCULO</span>
-            <span><i class="fas fa-plus-circle"></i></span>
-          </PageHeader>
-
-          <GridList
-            cellHeight={400}
-              cols={2}
-          >
-              <GridTile
-              >
-              <Subheader>December</Subheader>
-
+          <div className="row">
+            <div className="col-sm-6">
               <ListVehicles></ListVehicles>
 
-              </GridTile>
-              <GridTile
-              >
-              <Subheader>December</Subheader>
-
+            </div>
+            <div className="col-sm-6">
               <Details></Details>
+            </div>
+          </div>
 
-
-              </GridTile>
-          </GridList>
         </div>
+
       <DialogExampleModal></DialogExampleModal>
       </div>
       </MuiThemeProvider>

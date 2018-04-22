@@ -1,0 +1,105 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+
+//Main wrapper of project
+.project-wrapper{
+background-color: #e2e4e1;
+height: 100vh;
+width: 100vw;
+}
+
+// Navbar Variables
+$distance-paddin-left: 10vw;
+$height-nav: 7vh;
+
+// Navbar Styles
+.navbar-all-content{
+  background-color: #364147;
+  color: white;
+  margin: 0;
+  min-height: 7vh;
+  .form-navbar{
+    background-color: #2a3138;
+    padding-left: $distance-paddin-left;
+
+    input{
+      height: $height-nav;
+      background-color: #2a3138;
+      border: 0;
+      width: 100%;
+      padding-left: 5vw;
+    }
+  }
+  ::placeholder {
+    color: white;
+    opacity: 1;
+    font-size: 1em;
+
+}
+  .brand-navbar{
+    display: flex;
+    align-items: center;
+    height: $height-nav;
+    font-size: 1.6em;
+    padding-left: $distance-paddin-left;
+    background-color: #364147;
+
+    span[name="title"]{
+      text-transform: uppercase;
+      padding-left: 2vw;
+      font-size: 1em;
+    }
+  }
+
+}
+
+//Variables PageHeader
+//Styles PageHeader
+
+.vehicles-header {
+
+  height: 7vh;
+  span {
+    &[name="title"] {
+      float: left;
+      font-size: 0.5em;
+      font-weight: 500;
+    }
+
+    &[name="icon"] {
+      float: right;
+      font-size: 0.6em;
+    }
+  }
+}
+
+.card-text {
+    display: flex;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
