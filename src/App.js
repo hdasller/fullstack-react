@@ -10,6 +10,8 @@ import Toolbar from 'material-ui/Toolbar';
 import { PageHeader } from 'react-bootstrap';
 import {GridList, GridTile} from 'material-ui/GridList';
 import Subheader from 'material-ui/Subheader';
+import IconButton from 'material-ui/IconButton';
+
 class App extends Component {
 
 
@@ -20,10 +22,17 @@ class App extends Component {
         <CustomNav></CustomNav>
 
         <div className="container">
-          <div class="row">
+          <div className="row">
             <PageHeader className="vehicles-header">
                 <span name="title">VEÍCULO</span>
-              <span name="icon"><i class="fas fa-plus-circle"></i></span>
+
+              <span name="icon"><IconButton
+                iconClassName="fas fa-plus-circle"
+                tooltip="Criar novo veículo"
+                tooltipPosition="top-left"
+                iconStyle={{color:'#45535A' }}
+                />
+            </span>
             </PageHeader>
           </div>
 

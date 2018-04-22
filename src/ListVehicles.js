@@ -9,6 +9,7 @@ import PubSub from 'pubsub-js';
 import SelectMark from './SelectType.js'
 import Divider from 'material-ui/Divider';
 import List, { ListItem, ListItemText } from 'material-ui/List';
+import IconButton from 'material-ui/IconButton';
 
 const client = new ApolloClient(BASE_URL);
 
@@ -55,7 +56,12 @@ export default class ListVehicles extends Component {
             <span>
               <ListItem
                 button
-                rightIcon={    <span><i className="fas fa-tag"></i></span>}
+                rightIcon={         <IconButton
+                          iconClassName="fas fa-trash-alt"
+                          tooltip="Remover Veículo"
+                          tooltipPosition="top-left"
+                          iconStyle={{color:'#45535A' }}
+                          />}
                 onClick={(e) => this.changeDetails(e, vehicle.node)}>
                   <span className="card-text">{vehicle.node.marca}</span>
                   <span className="card-text">{vehicle.node.modelo}</span>

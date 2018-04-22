@@ -26,8 +26,8 @@
 //Main wrapper of project
 .project-wrapper{
 background-color: #e2e4e1;
-height: 100vh;
-width: 100vw;
+min-height: 100vh;
+min-width: 100vw;
 }
 
 // Navbar Variables
@@ -93,6 +93,29 @@ $height-nav: 7vh;
       font-size: 0.6em;
     }
   }
+}
+
+//variables for wrapper details
+$basic-color: #dddddd;
+//Details wrapper styles
+.card-details-wapper{
+  background-color: #f1f2f0;
+  color: $basic-color;
+  .title{
+    span{
+      font-weight: bold;
+
+    }
+  }
+  .footer-card{
+    width: 100%;
+    height: 4.5em;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid $basic-color;
+
+  }
+
 }
 
 .card-text {

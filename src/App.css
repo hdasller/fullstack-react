@@ -19,8 +19,8 @@
 
 .project-wrapper {
   background-color: #e2e4e1;
-  height: 100vh;
-  width: 100vw; }
+  min-height: 100vh;
+  min-width: 100vw; }
 
 .navbar-all-content {
   background-color: #364147;
@@ -61,6 +61,18 @@
   .vehicles-header span[name="icon"] {
     float: right;
     font-size: 0.6em; }
+
+.card-details-wapper {
+  background-color: #f1f2f0;
+  color: #dddddd; }
+  .card-details-wapper .title span {
+    font-weight: bold; }
+  .card-details-wapper .footer-card {
+    width: 100%;
+    height: 4.5em;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #dddddd; }
 
 .card-text {
   display: flex; }
