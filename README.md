@@ -29,7 +29,6 @@ O projeto possui a seguinte arquitetura:
 |   MutationModal.js <br />
 |   Navbar.js <br />
 |   registerServiceWorker.js <br />
-|   SelectType.js <br />
 | <br /> 
 +---config <br />
 |       constants.js <br />
