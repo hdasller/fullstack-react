@@ -16,26 +16,26 @@ Front-end:
 
 O projeto possuí a seguinte arquitetura:
 
-│   App.css
-│   App.js
-│   App.scss
-│   App.test.js
-│   DeleteModal.js
-│   Details.js
-│   index.css
-│   index.js
-│   ListVehicles.js
-│   logo.svg
-│   MutationModal.js
-│   Navbar.js
-│   registerServiceWorker.js
-│   SelectType.js
-│
-├───config
-│       constants.js
-│
-└───models
-        gql.model.js
+|   App.css <br />
+|   App.js <br />
+|   App.scss <br />
+|   App.test.js <br />
+|   DeleteModal.js <br />
+|   Details.js <br />
+|   index.css <br />
+|   index.js <br />
+|   ListVehicles.js <br />
+|   logo.svg <br />
+|   MutationModal.js <br />
+|   Navbar.js <br />
+|   registerServiceWorker.js <br />
+|   SelectType.js <br />
+| <br /> 
++---config <br />
+|       constants.js <br />
+| <br />
+\---models <br />
+        gql.model.js <br />
         
 ## Base do projeto
 
