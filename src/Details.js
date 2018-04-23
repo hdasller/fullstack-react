@@ -20,6 +20,9 @@ export default class Details extends Component {
 goUpdateVehicle(){
   PubSub.publish('openDialogUpdate', this.state.obj);
 }
+goDeleteVehicle(){
+  PubSub.publish('openDialogDelete', this.state.obj);
+}
 
   render() {
 		return (
@@ -76,7 +79,7 @@ goUpdateVehicle(){
             <CardActions className="footer-card">
                 <RaisedButton icon={<i className="fas fa-pencil-alt"></i>} labelColor="#FFF" label="EDITAR" backgroundColor="#45535A" onClick={this.goUpdateVehicle.bind(this)} />
 
-                  <RaisedButton icon={<i className="fas fa-trash-alt"></i>} labelColor="#FFF" label="DELETAR" backgroundColor="#2a3138"  />
+                  <RaisedButton icon={<i className="fas fa-trash-alt"></i>} labelColor="#FFF" label="DELETAR" backgroundColor="#2a3138"  onClick={this.goDeleteVehicle.bind(this)} />
             </CardActions>
         </div>
       </Card>

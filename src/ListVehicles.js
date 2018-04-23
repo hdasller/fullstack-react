@@ -27,6 +27,10 @@ export default class ListVehicles extends Component {
     PubSub.publish('changeDetails', vehicles);
   }
 
+  goDeleteVehicle(vehicle){
+    PubSub.publish('openDialogDelete', vehicle.node);
+  }
+
   getVehicles(page) {
     let variables = {
       "limit": 5,
@@ -44,14 +48,14 @@ export default class ListVehicles extends Component {
           this.setState({hasNextPage: res['data']['buscaVeiculo']['pageInfo']['hasNextPage'] })
           let vehicles =  [... currentlyVehicles, ... responseVehicles ]
           this.setState({vehicles: vehicles});
-          console.log("teste, ", res);
+      }).catch(err => {
+        console.log(err);
       })
   }
 
   render() {
 
     let vehicles = this.state.vehicles.map(vehicle => {
-          console.log(vehicle);
           return(
             <span id="divider">
               <ListItem
@@ -60,6 +64,7 @@ export default class ListVehicles extends Component {
                           iconClassName="fas fa-trash-alt"
                           tooltip="Remover Veículo"
                           tooltipPosition="top-left"
+                          onClick={this.goDeleteVehicle.bind(this, vehicle)}
                           iconStyle={{color:'#45535A' }}
                           />}
                 onClick={(e) => this.changeDetails(e, vehicle.node)}>
