@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar , NavItem, Nav } from 'react-bootstrap';
+import PubSub from 'pubsub-js';
 
 export default class CustomNav extends Component {
 
@@ -11,6 +12,11 @@ export default class CustomNav extends Component {
 
   }
 
+  loadVehiclesByKey(event){
+    console.log(event.target.value);
+    PubSub.publish('findByKey', event.target.value);
+  }
+
   render() {
 		return (
       <div className="navbar-all-content">
@@ -19,9 +25,7 @@ export default class CustomNav extends Component {
           <span className="title" name="title">fullstack</span>
         </div>
         <div className="col-sm-6 form-navbar">
-          <form method="post">
-            <input id="search" type="text" placeholder="BUSCA por um veículo" />
-          </form>
+            <input onChange={this.loadVehiclesByKey.bind(this)} id="search" type="text" placeholder="BUSCA por um veículo" />
         </div>
     </div>
 		);

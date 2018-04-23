@@ -89,7 +89,9 @@ export default class MutationModal extends React.Component {
     }.bind(this));
   }
 
-
+  loadVehiclesList(){
+    PubSub.publish('loadVehiclesList');
+  }
 
   makeVehicle(obj, isSend?){
     let fuel = this.getIndexOfTypes('fuelType',obj.combustivel)
@@ -129,10 +131,9 @@ submitForm() {
     variables.id = this.state._id
   }
 
-console.log(variables);
-
   // client.mutate({mutation: gql `${model}`, variables: variables}).then(res => {
-  //   console.log("resposta create ", res);
+  this.loadVehiclesList()
+  this.handleClose()
   // })
 }
 
@@ -168,7 +169,7 @@ setSelectValue(key, ctx, value){
     const actions = [
 
       <RaisedButton
-       icon={<i className="fas fa-pencil-alt"></i>}
+       icon={<i className="fas fa-check"></i>}
        labelColor="#FFF"
        label={this.state.titleButtom}
        backgroundColor="#45535A"

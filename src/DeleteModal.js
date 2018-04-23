@@ -32,6 +32,10 @@ export default class DeleteModal extends React.Component {
     this.loadListeners()
   }
 
+  loadVehiclesList(){
+    PubSub.publish('loadVehiclesList', {});
+  }
+
   submitForm() {
 
 
@@ -41,7 +45,8 @@ export default class DeleteModal extends React.Component {
     }
 
   console.log(variables);
-
+  this.loadVehiclesList()
+  this.handleClose()
     // client.mutate({mutation: gql `${model}`, variables: variables}).then(res => {
     //   console.log("resposta delete ", res);
     // })
