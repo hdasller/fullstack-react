@@ -328,7 +328,7 @@ setSelectValue(key, ctx, value){
                 label="Usado"
                 defaultToggled={this.state['usado']}
                 labelStyle={{'fontWeight': '100',  'color': ''}}
-                onChange={this.setSelectValue.bind(this, 'usado')}
+                onToggle={this.setSelectValue.bind(this, 'usado')}
                    /><br />
             </div>
           </div>
