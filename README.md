@@ -29,7 +29,6 @@ O projeto possui a seguinte arquitetura:
 |   MutationModal.js <br />
 |   Navbar.js <br />
 |   registerServiceWorker.js <br />
-|   SelectType.js <br />
 | <br /> 
 +---config <br />
 |       constants.js <br />
@@ -44,9 +43,10 @@ O projeto foi criado utilizando como base:
 - *node v^8.11.1*
 - *npm v^5.6.0*
 
-## Inicialização
+## Instalação do projeto
 
-Para inicializar o projeto:
-
-1. Instale todas as dependências com *npm i*
-2. Rode o comando *npm start*
+Para installar o projeto:
+1. Clone o projeto rodando o comando `git clone https://github.com/hdasller/fullstack-react.git`
+2. Instale todas as dependências rodando o comando `npm i` dentro da pasta do projeto.
+3. Rode o comando `npm start`
+4. Rode o comando `npm run watch-css` para realizar modificações scss para css em tempo real (Opicional)
