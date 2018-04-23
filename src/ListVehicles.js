@@ -90,6 +90,7 @@ changeDetails(ctx, vehicles) {
           return(
             <span id="divider">
               <ListItem
+                style={{'backgroundColor': 'white ' }}
                 onClick={(e) => this.changeDetails(e, vehicle.node)}
                 button="true"
                 rightIcon={         <IconButton
@@ -101,12 +102,12 @@ changeDetails(ctx, vehicles) {
 
                           />}
                 >
-                  <span className="card-text">{vehicle.node.marca}</span>
-                  <span className="card-text">{vehicle.node.modelo}</span>
-                  <span className="card-text">{vehicle.node.ano_modelo}</span>
+                  <span className="card-text" style={{'fontWeight': "bold", "font-size": "12px"}}>{vehicle.node.marca}</span>
+                  <span className="card-text" style={{'color': "#189C6C", "font-size": "12px"}}>{vehicle.node.modelo}</span>
+                  <span className="card-text" style={{'color': "#45535A", "font-size": "12px"}}>{vehicle.node.ano_modelo}</span>
 
               </ListItem>
-                <Divider />
+                <Divider style={{'borderBottom': '10px solid #e2e4e1' }}  />
             </span>
 
 
@@ -120,16 +121,16 @@ changeDetails(ctx, vehicles) {
 
 
 		return (
-      <div style={{'overflow': 'auto', height: '500px'}}>
+      <div style={{'overflow': 'auto', height: '500px' ,'backgroundColor': '#e2e4e1'}}>
       <InfiniteScroll
          pageStart={0}
          loadMore={this.getVehicles.bind(this)}
          hasMore={this.state.hasNextPage}
          useWindow={false}
       >
-    <Card>
+    <Card style={{'backgroundColor': '#e2e4e1' }} >
     <CardText>
-      <List component="nav"  >
+      <List component="nav" >
         {vehicles}
 
        </List>
