@@ -49,4 +49,4 @@ Para installar o projeto:
 1. Clone o projeto rodando o comando `git clone https://github.com/hdasller/fullstack-react.git`
 2. Instale todas as dependências rodando o comando `npm i` dentro da pasta do projeto.
 3. Rode o comando `npm start`
-4. Rode o comando `npm run watch-css` para realizar modificações scss para css em tempo real (Opicional)
+4. Rode o comando `npm run watch-css` para realizar modificações scss para css em tempo real (Opcional)
