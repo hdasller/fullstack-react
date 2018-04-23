@@ -14,7 +14,7 @@ Front-end:
 
 ## Estrutura
 
-O projeto possuí a seguinte arquitetura:
+O projeto possui a seguinte arquitetura:
 
 |   App.css <br />
 |   App.js <br />
