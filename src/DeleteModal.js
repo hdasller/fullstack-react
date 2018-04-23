@@ -30,17 +30,25 @@ export default class DeleteModal extends React.Component {
   componentDidMount(){
     this.initialize()
   }
-
+  /**
+   * This method initialize all components dependencies
+   */
   initialize(){
     this.loadListeners()
   }
 
+  /**
+   * This method load list of vehicles
+   */
   loadVehiclesList(){
     PubSub.publish('loadVehiclesList', {});
   }
 
-  submitForm() {
 
+  /**
+   * This mehod send a requisition to delete vehicle
+   */
+  submitForm() {
 
     let model = MODEL.deleteVehicle()
     let variables = {
@@ -55,7 +63,9 @@ export default class DeleteModal extends React.Component {
 
     })
   }
-
+/**
+ * This method listen a broadcast to await open a modal.
+ */
   loadListeners(){
     PubSub.subscribe('openDialogDelete', function(topicName,vehicle){
       this.handleOpen()
@@ -66,11 +76,15 @@ export default class DeleteModal extends React.Component {
     }.bind(this));
   }
 
-
+/**
+ * This mehod change state to open dialog.
+ */
   handleOpen = () => {
     this.setState({open: true});
   };
-
+  /**
+   * This mehod change state to close dialog.
+   */
   handleClose = () => {
     this.setState({open: false});
   };

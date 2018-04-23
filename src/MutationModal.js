@@ -4,7 +4,6 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Toggle from 'material-ui/Toggle';
-import SelectType from './SelectType.js'
 import PubSub from 'pubsub-js';
 import MODEL from './models/gql.model.js'
 import ApolloClient from "apollo-boost";
@@ -44,6 +43,9 @@ export default class MutationModal extends React.Component {
       this.initialize()
     }
 
+    /**
+     * This method initialize all components dependencies
+     */
 
     initialize(){
       this.loadListeners()
@@ -51,12 +53,29 @@ export default class MutationModal extends React.Component {
       this.loadFuelTypes()
     }
 
+    /**
+     * This method load mark types for generate a list to select options
+     *
+     */
+
     loadMarkTypes(){
       this.getTypes('markTypes', 'MarcaType')
     }
+
+    /**
+     * This method load fuel types for generate a list to select options
+     *
+     */
     loadFuelTypes(){
       this.getTypes('fuelTypes', 'CombustivelType')
     }
+
+    /**
+     * This mehod load types from graphql api.
+     * @param  {[type]} localType Name of array
+     * @param  {[type]} queryType Name of query type
+     */
+
     getTypes(localType, queryType) {
       let variables = {}
       client
@@ -70,6 +89,9 @@ export default class MutationModal extends React.Component {
         })
     }
 
+    /**
+     * This method listen a broadcast to await message to prepare dialog for update or create form.
+     */
 
   loadListeners(){
     PubSub.subscribe('openDialogUpdate', function(topicName,obj){
@@ -91,13 +113,19 @@ export default class MutationModal extends React.Component {
     }.bind(this));
   }
 
+
+  /**
+   * This method load list of vehicles
+   */
   loadVehiclesList(){
     PubSub.publish('loadVehiclesList');
   }
 
+
+  /**
+   * This method prepare a object to this component state
+   */
   makeVehicle(obj, isSend?){
-    // let fuel = this.getIndexOfTypes('fuelType',obj.combustivel)
-    // let mark = this.getIndexOfTypes('markTypes',obj.marca)
     return  {
           ano_fabricacao: obj.ano_fabricacao,
           ano_modelo: obj.ano_modelo,
@@ -109,16 +137,9 @@ export default class MutationModal extends React.Component {
         }
   }
 
-getIndexOfTypes(listName, typeName) {
-  try {
-    let result = this.state[listName].map(function(item) {
-      return item.name;
-    }).indexOf(typeName)
-    return result == -1 ? 0 : result
-  } catch (e) {
-    return 0
-  }
-}
+  /**
+   * This mehod send a requisition to create or update a vehicle
+   */
 
 submitForm() {
 
@@ -144,10 +165,16 @@ submitForm() {
   })
 }
 
+/**
+ * This mehod change state to open dialog.
+ */
 handleOpen = () => {
   this.setState({open: true});
 };
 
+/**
+ * This mehod change state to close dialog.
+ */
 handleClose = () => {
 
 this.setState({
@@ -164,7 +191,12 @@ this.setState({
     combustivel: 'FLEX'})
 
 };
-
+/**
+ * This method set a state to itens of form.
+ * @param {[type]} key   Name of state
+ * @param {[type]} ctx   Context
+ * @param {[type]} value Value of item form
+ */
 setSelectValue(key, ctx, value){
   let result;
   if(key == "marca" || key == "combustivel")
@@ -173,7 +205,6 @@ setSelectValue(key, ctx, value){
   let selected = {
     [key]: result
   }
-
   this.setState(selected);
 }
 

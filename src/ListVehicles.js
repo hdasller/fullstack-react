@@ -6,7 +6,6 @@ import {Card, CardText} from 'material-ui/Card';
 import MODEL from './models/gql.model.js'
 import InfiniteScroll from 'react-infinite-scroller';
 import PubSub from 'pubsub-js';
-import SelectMark from './SelectType.js'
 import Divider from 'material-ui/Divider';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import IconButton from 'material-ui/IconButton';
@@ -16,53 +15,76 @@ const client = new ApolloClient(BASE_URL);
 export default class ListVehicles extends Component {
 
 
-  constructor() {
+constructor() {
 
   super();
-    this.state = {vehicles: [], hasNextPage: true, page: 0, key: ''};
-    this.page = 0
+  this.state = {
+    vehicles: [],
+    hasNextPage: true,
+    page: 0,
+    key: ''
+  };
+  this.page = 0
+}
+
+
+componentDidMount() {
+  this.initialize()
+}
+
+
+/**
+ * This method initialize all components dependencies
+ */
+initialize() {
+  this.loadListeners()
+}
+
+/**
+ * This method send a broadcast message to open a delete dialog
+ */
+goDeleteVehicle(vehicle) {
+  PubSub.publish('openDialogDelete', vehicle.node);
+}
+
+
+/**
+ * This method get vehicles list
+ * @param  number page Page number sended from infinite scroll
+ */
+
+getVehicles(page) {
+
+  let variables = {
+    "limit": 20,
+    "page": this.page,
+    "type": "veiculo",
+    "query": this.state.key
   }
+  console.log(this.page);
 
-  componentDidMount(){
-    this.initialize()
-  }
+  client.query({query: gql `${MODEL.getVehicles()}`, variables: variables, fetchPolicy: 'network-only'}).then(res => {
+    let responseVehicles = res['data']['buscaVeiculo']['edges']
+    let currentlyVehicles = this.state.vehicles
+    this.setState({hasNextPage: res['data']['buscaVeiculo']['pageInfo']['hasNextPage']
+    })
+    let vehicles = [
+      ...currentlyVehicles,
+      ...responseVehicles
+    ]
+    this.setState({vehicles: vehicles});
 
-  initialize(){
-    this.loadListeners()
-  }
+  }).catch(err => {
+    console.log(err);
+  })
+  this.page = this.page + 1;
+}
 
-
-  goDeleteVehicle(vehicle){
-    PubSub.publish('openDialogDelete', vehicle.node);
-  }
-
-  getVehicles(page) {
-
-    let variables = {
-      "limit": 20,
-      "page": this.page,
-      "type": "veiculo",
-      "query": this.state.key
-    }
-    console.log(this.page);
-
-    client
-      .query({
-        query:  gql`${MODEL.getVehicles()}`,
-      variables: variables,
-      fetchPolicy: 'network-only'
-    }).then(res=> {
-          let responseVehicles = res['data']['buscaVeiculo']['edges']
-          let currentlyVehicles = this.state.vehicles
-          this.setState({hasNextPage: res['data']['buscaVeiculo']['pageInfo']['hasNextPage'] })
-          let vehicles =  [... currentlyVehicles, ... responseVehicles ]
-          this.setState({vehicles: vehicles});
-
-      }).catch(err => {
-        console.log(err);
-      })
-      this.page = this.page + 1;
-  }
+/**
+ * [changeDetails description]
+ * @param  {[type]} ctx      [description]
+ * @param  {[type]} vehicles [description]
+ */
 
 changeDetails(ctx, vehicles) {
   console.log("vehicles onclick", vehicles);
@@ -70,18 +92,23 @@ changeDetails(ctx, vehicles) {
 }
 
 
-  loadListeners(){
-    PubSub.subscribe('loadVehiclesList', function(topicName, obj){
-      this.setState({vehicles: []})
-      this.page = 0;
-      this.getVehicles(this.page)
-   }.bind(this));
-   PubSub.subscribe('findByKey', function(topicName, key){
-     this.setState({vehicles: [],  key: key})
-     this.page = 0;
-     this.getVehicles(this.page)
+/**
+ * This method load vehicle when a broadcast has been sended
+ * for load remotely vehicles list
+ */
+
+loadListeners() {
+  PubSub.subscribe('loadVehiclesList', function(topicName, obj) {
+    this.setState({vehicles: []})
+    this.page = 0;
+    this.getVehicles(this.page)
   }.bind(this));
- }
+  PubSub.subscribe('findByKey', function(topicName, key) {
+    this.setState({vehicles: [], key: key})
+    this.page = 0;
+    this.getVehicles(this.page)
+  }.bind(this));
+}
 
 
   render() {

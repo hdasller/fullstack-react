@@ -16,6 +16,11 @@ import PubSub from 'pubsub-js';
 
 class App extends Component {
 
+  /**
+   * [goCreateVehicle description]
+   * This method send a broadcast message to open a create vehicle modal.
+   */
+
   goCreateVehicle(){
     PubSub.publish('openDialogCreate');
   }

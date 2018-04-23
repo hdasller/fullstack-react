@@ -6,21 +6,40 @@ import IconButton from 'material-ui/IconButton';
 
 export default class Details extends Component {
 
-  constructor() {
+constructor() {
 
-    super();
-    // this.state = {modelo: '', marca: '', ano_modelo: '', ano_fabricacao: '', combustivel: '', cor: '', usado: ''};
-    this.state = {obj: {}}
+  super();
 
-    PubSub.subscribe('changeDetails', function(topicName,vehicle){
-      this.setState({obj:vehicle});
-    }.bind(this));
+  this.state = {
+    obj: {}
   }
+  this.loadListeners()
 
-goUpdateVehicle(){
+}
+
+/**
+ * This method load vehicle when a broadcast has been sended
+ */
+
+loadListeners() {
+  PubSub.subscribe('changeDetails', function(topicName, vehicle) {
+    this.setState({obj: vehicle});
+  }.bind(this));
+}
+
+/**
+ * This method send a broadcast message to open a update dialog
+ */
+
+goUpdateVehicle() {
   PubSub.publish('openDialogUpdate', this.state.obj);
 }
-goDeleteVehicle(){
+
+/**
+ * This method send a broadcast message to open a delete dialog
+ */
+
+goDeleteVehicle() {
   PubSub.publish('openDialogDelete', this.state.obj);
 }
 

@@ -12,6 +12,10 @@ export default class CustomNav extends Component {
 
   }
 
+  /**
+   *  This method loads one of the vehicles in the search input change
+   */
+
   loadVehiclesByKey(event){
     console.log(event.target.value);
     PubSub.publish('findByKey', event.target.value);
