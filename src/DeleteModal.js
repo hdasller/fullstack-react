@@ -6,6 +6,9 @@ import MODEL from './models/gql.model.js'
 import ApolloClient from "apollo-boost";
 import gql from "graphql-tag";
 import RaisedButton from 'material-ui/RaisedButton';
+import BASE_URL from './config/constants.js';
+
+const client = new ApolloClient(BASE_URL);
 
 const customContentStyle = {
   width: '20%',
@@ -41,15 +44,16 @@ export default class DeleteModal extends React.Component {
 
     let model = MODEL.deleteVehicle()
     let variables = {
-      "_id": this.state.vehicleId
+      "id": this.state.vehicleId
     }
 
-  console.log(variables);
-  this.loadVehiclesList()
-  this.handleClose()
-    // client.mutate({mutation: gql `${model}`, variables: variables}).then(res => {
-    //   console.log("resposta delete ", res);
-    // })
+    client.mutate({mutation: gql `${model}`, variables: variables}).then(res => {
+      this.loadVehiclesList()
+      this.handleClose()
+    }).catch(err => {
+      console.log(err);
+
+    })
   }
 
   loadListeners(){

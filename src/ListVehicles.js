@@ -20,6 +20,7 @@ export default class ListVehicles extends Component {
 
   super();
     this.state = {vehicles: [], hasNextPage: true, page: 0, key: ''};
+    this.page = 0
   }
 
   componentDidMount(){
@@ -38,26 +39,29 @@ export default class ListVehicles extends Component {
   getVehicles(page) {
 
     let variables = {
-      "limit": 5,
-      "page": this.state.page,
+      "limit": 20,
+      "page": this.page,
       "type": "veiculo",
       "query": this.state.key
     }
+    console.log(this.page);
+
     client
       .query({
         query:  gql`${MODEL.getVehicles()}`,
-      variables: variables
+      variables: variables,
+      fetchPolicy: 'network-only'
     }).then(res=> {
           let responseVehicles = res['data']['buscaVeiculo']['edges']
           let currentlyVehicles = this.state.vehicles
           this.setState({hasNextPage: res['data']['buscaVeiculo']['pageInfo']['hasNextPage'] })
           let vehicles =  [... currentlyVehicles, ... responseVehicles ]
           this.setState({vehicles: vehicles});
-          let nextPage = this.state.page +1
-          this.setState({page: nextPage})
+
       }).catch(err => {
         console.log(err);
       })
+      this.page = this.page + 1;
   }
 
 changeDetails(ctx, vehicles) {
@@ -68,12 +72,14 @@ changeDetails(ctx, vehicles) {
 
   loadListeners(){
     PubSub.subscribe('loadVehiclesList', function(topicName, obj){
-      this.setState({vehicles: [], page: 0})
-      this.getVehicles(this.state.page)
+      this.setState({vehicles: []})
+      this.page = 0;
+      this.getVehicles(this.page)
    }.bind(this));
    PubSub.subscribe('findByKey', function(topicName, key){
-     this.setState({vehicles: [], page: 0, key: key})
-     this.getVehicles(this.state.page)
+     this.setState({vehicles: [],  key: key})
+     this.page = 0;
+     this.getVehicles(this.page)
   }.bind(this));
  }
 
@@ -116,7 +122,6 @@ changeDetails(ctx, vehicles) {
 		return (
       <div style={{'overflow': 'auto', height: '500px'}}>
       <InfiniteScroll
-        initialLoad="false"
          pageStart={0}
          loadMore={this.getVehicles.bind(this)}
          hasMore={this.state.hasNextPage}
